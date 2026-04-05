@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   captureAreaRectUI: {fileID: 0}
+  previewMaxSize: 600
   saveFolderName: ARCaptures
 --- !u!114 &978172753
 MonoBehaviour:
@@ -326,7 +327,7 @@ MonoBehaviour:
   angleTolerance: 0.67
   intersectionForwardLimit: 15
   intersectionBackwardLimit: -1
-  gestureJitterGracePeriod: 0.2
+  gestureJitterGracePeriod: 0.5
   showDebugGUI: 1
   OnSquareGestureDetected:
     m_PersistentCalls:
@@ -346,6 +347,7 @@ MonoBehaviour:
   OnSquareGestureLost:
     m_PersistentCalls:
       m_Calls: []
+  lineDrawDistance: 1
 --- !u!1001 &1006057040
 PrefabInstance:
   m_ObjectHideFlags: 0

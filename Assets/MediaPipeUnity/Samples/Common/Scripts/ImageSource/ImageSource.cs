@@ -27,6 +27,7 @@ namespace Mediapipe.Unity
         this.frameRate = frameRate;
       }
 
+#pragma warning disable 0618
       public ResolutionStruct(Resolution resolution)
       {
         width = resolution.width;
@@ -38,6 +39,7 @@ namespace Mediapipe.Unity
       {
         return new Resolution() { width = width, height = height, refreshRate = (int)frameRate };
       }
+#pragma warning restore 0618
 
       public override string ToString()
       {

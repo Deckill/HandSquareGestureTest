@@ -41,6 +41,7 @@ namespace ARGestureApp
 
         // UI/시각화용
         private LineRenderer frameLineRenderer;
+        private ScreenCaptureManager _captureManager;
         
         [Tooltip("라인 렌더러가 카메라 앞에 그려질 거리. 너무 작으면 안 보일 수 있습니다.")]
         public float lineDrawDistance = 1.0f;
@@ -63,6 +64,9 @@ namespace ARGestureApp
             {
                 Debug.LogError("[HandSquare] 씬에 HandLandmarkerRunner를 찾을 수 없습니다.");
             }
+
+            // 프리뷰용 CaptureManager 찾기
+            _captureManager = FindObjectOfType<ScreenCaptureManager>();
 
             // 시각 피드백용 라인 렌더러 자동 생성
             frameLineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -174,6 +178,12 @@ namespace ARGestureApp
                         frameLineRenderer.SetPosition(i, worldPos);
                     }
                 }
+
+                // 프리뷰 업데이트
+                if (_captureManager != null)
+                {
+                    _captureManager.UpdatePreview(captureQuad);
+                }
                 
                 if (currentHoldTime >= captureHoldDuration && !isGestureActive)
                 {
@@ -183,6 +193,7 @@ namespace ARGestureApp
                     
                     // 캡처하는 순간 잠깐 끄기 (혹은 효과 연출)
                     if (frameLineRenderer != null) frameLineRenderer.enabled = false;
+                    if (_captureManager != null) _captureManager.HidePreview();
                 }
             }
             else
@@ -222,6 +233,7 @@ namespace ARGestureApp
             gestureLostTime = 0f;
 
             if (frameLineRenderer != null) frameLineRenderer.enabled = false;
+            if (_captureManager != null) _captureManager.HidePreview();
         }
 
         // 손가락이 펴졌는지(직선거리 기준) 판단하는 도우미 함수 
